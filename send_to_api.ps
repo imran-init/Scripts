@@ -1,0 +1,21 @@
+#Read the values from the text file
+$values = Get-Content -Path "C:\path\to\textfile.txt"
+
+#Set the API endpoint and the request headers
+$url = "https://api.example.com/endpoint"
+$headers = @{
+    "Content-Type" = "application/json"
+}
+
+#Loop through the values and send them to the API one by one
+foreach ($value in $values) {
+    $data = @{
+        "parameterName" = $value
+    }
+
+    #Convert the data to JSON format
+    $json = $data | ConvertTo-Json
+
+    #Send the request to the API
+    Invoke-RestMethod -Method Post -Uri $url -Body $json -Headers $headers
+}
